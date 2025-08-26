@@ -34,7 +34,6 @@ dill==0.3.8
 diskcache==5.6.3
 distro==1.9.0
 dnspython==2.7.0
-easydict==1.13
 einops==0.8.1
 email_validator==2.2.0
 fairscale==0.4.0
@@ -119,7 +118,6 @@ protobuf==4.25.8
 psutil==7.0.0
 py-cpuinfo==9.0.0
 pyarrow==20.0.0
-pycountry==24.6.1
 pydantic==2.11.3
 pydantic_core==2.33.1
 pydub==0.25.1
@@ -177,7 +175,6 @@ torchscale==0.3.0
 torchsde==0.2.6
 torchsummary==1.5.1
 torchvision==0.21.0
-tqdm==4.67.1
 trampoline==0.1.2
 transformers==4.53.2
 triton==3.2.0
