@@ -95,7 +95,6 @@ multidict==6.4.3
 multiprocess==0.70.16
 nest-asyncio==1.6.0
 netifaces==0.11.0
-networkx==3.4.2
 ninja==1.11.1.4
 numba==0.61.2
 numpy==2.1.1
@@ -151,7 +150,6 @@ safetensors==0.5.3
 scikit-image==0.25.2
 scikit-learn==1.6.1
 scipy==1.15.2
-seaborn==0.13.2
 semantic-version==2.10.0
 sentencepiece==0.2.0
 sentry-sdk==2.32.0
@@ -168,7 +166,6 @@ tensorboard-data-server==0.7.2
 tensorboardX==2.6.2.2
 threadpoolctl==3.6.0
 tifffile==2025.3.30
-tiktoken==0.9.0
 timm==0.6.13
 tokenizers==0.21.1
 toml==0.10.2
