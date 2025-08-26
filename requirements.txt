@@ -189,7 +189,6 @@ typing-inspection==0.4.0
 typing_extensions==4.13.2
 tzdata==2025.2
 ultralytics==8.3.118
-ultralytics-thop==2.0.14
 urllib3==2.4.0
 uvicorn==0.34.2
 uvloop==0.21.0
