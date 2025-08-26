@@ -43,7 +43,6 @@ NODE_CONFIG = {
     "SeparateMasks": {"class": SeparateMasks, "name": "Separate Masks"},
     #images
     "AddLabel": {"class": AddLabel, "name": "Add Label"},
-    "ColorMatch": {"class": ColorMatch, "name": "Color Match"},
     "ImageTensorList": {"class": ImageTensorList, "name": "Image Tensor List"},
     "CrossFadeImages": {"class": CrossFadeImages, "name": "Cross Fade Images"},
     "CrossFadeImagesMulti": {"class": CrossFadeImagesMulti, "name": "Cross Fade Images Multi"},
