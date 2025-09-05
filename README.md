@@ -29,7 +29,7 @@
   </a>
 </p>
 
-# <p align="left"><img src="lego_pic.png" width="10%"></p> Lego-Edit: A General Image Editing Framework with Model-Level Bricks and MLLM Builder
+# Lego-Edit: A General Image Editing Framework with Model-Level Bricks and MLLM Builder
 > Qifei Jia, Yajie Chai, Xintong Yao, Qiming Lu, Yasen Zhang<sup>+</sup>, Runyu Shi, Ying Huang, Guoquan Zhang
 
 > contact: jiaqifei1@xiaomi.com
@@ -102,11 +102,11 @@ Download（私有链接，审核通过后会上传huggingface）and rename to 'C
 地址：https://kpan.mioffice.cn/webfolder/ext/UmCyzI8sKcz%24uVm31GQvyw%40%40?n=0.6217058873666281
 密码：5fA5
 
-Download（私有链接，审核通过后会上传huggingface）and rename to 'qwen2_pred'.
+Download（私有链接，审核通过后会上传huggingface）and rename to 'mimo_lora'.
 
-名称：qwen2_pred
-地址：https://kpan.mioffice.cn/webfolder/ext/VUZBEDNA%23Z3%24uVm31GQvyw%40%40?n=0.9467262801592946
-密码：0G4w
+名称：mimo_lora
+地址：https://kpan.mioffice.cn/webfolder/ext/PHPN8nZ4qG3%24uVm31GQvyw%40%40?n=0.6999273634782488
+密码：q2P5
 
 Download（私有链接，审核通过后会上传huggingface）and rename to 'Builder'.
 
@@ -130,7 +130,7 @@ Your model structure should match the following:
 ├── requirements.txt                      
 ├── legodemo.py                
 ├── Builder/                
-├── qwen2_pred/
+├── mimo_lora/
 ├── models/                     
 │   ├── unet/
 │   ├── vae/              
