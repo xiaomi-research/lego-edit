@@ -29,7 +29,7 @@
   </a>
 </p>
 
-# Lego-Edit: A General Image Editing Framework with Model-Level Bricks and MLLM Builder
+# <p align="left"><img src="lego_pic.png" width="10%"></p> Lego-Edit: A General Image Editing Framework with Model-Level Bricks and MLLM Builder
 > Qifei Jia, Yajie Chai, Xintong Yao, Qiming Lu, Yasen Zhang<sup>+</sup>, Runyu Shi, Ying Huang, Guoquan Zhang
 
 > contact: jiaqifei1@xiaomi.com
