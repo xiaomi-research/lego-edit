@@ -2,10 +2,12 @@ import time
 import json 
 import json5
 import copy
+import ast
 from scipy.ndimage import binary_dilation, gaussian_filter
 import cv2
 import numpy as np
 from typing import Dict, Any, Union, Tuple, Optional
+from vllm.lora.request import LoRARequest
 
 from vllm import LLM, SamplingParams
 
@@ -27,7 +29,6 @@ from PIL import Image, ImageDraw, ImageOps, ImageChops, ImageFilter, ImageStat
 import sys
 import os
 import PIL
-from ultralytics import YOLO
 import re
 from skimage import measure
 
@@ -496,166 +497,11 @@ def shift_mask_based_on_center(mask, obj_mask, direction):
             return shifted_mask_tmp2
 
 
-def draw_add_mask(ori_image, leftcorner, leftshift, rightcorner, rightshift):
-    width, height = ori_image.size
-    black_mask = Image.new('L', (width, height), color=0)
-    leftcorner_1 = leftcorner.split('_')[0]
-    leftcorner_2 = leftcorner.split('_')[1]
-    leftshift_1 = leftshift.split('_')[0]
-    leftshift_2 = leftshift.split('_')[1]
-    if leftcorner_1 == 'left':
-        if leftshift_1 == 'left':
-            left_top_1 = int(width*(1/32))
-        elif leftshift_1 == 'midone':
-            left_top_1 = int(width*(3/32))
-        elif leftshift_1 == 'midtwo':
-            left_top_1 = int(width*(5/32))
-        else:
-            left_top_1 = int(width*(7/32))
-    elif leftcorner_1 == 'midone':
-        if leftshift_1 == 'left':
-            left_top_1 = int(width*(9/32))
-        elif leftshift_1 == 'midone':
-            left_top_1 = int(width*(11/32))
-        elif leftshift_1 == 'midtwo':
-            left_top_1 = int(width*(13/32))
-        else:
-            left_top_1 = int(width*(15/32))
-    elif leftcorner_1 == 'midtwo':
-        if leftshift_1 == 'left':
-            left_top_1 = int(width*(17/32))
-        elif leftshift_1 == 'midone':
-            left_top_1 = int(width*(19/32))
-        elif leftshift_1 == 'midtwo':
-            left_top_1 = int(width*(21/32))
-        else:
-            left_top_1 = int(width*(23/32))
-    else:
-        if leftshift_1 == 'left':
-            left_top_1 = int(width*(25/32))
-        elif leftshift_1 == 'midone':
-            left_top_1 = int(width*(27/32))
-        elif leftshift_1 == 'midtwo':
-            left_top_1 = int(width*(29/32))
-        else:
-            left_top_1 = int(width*(31/32))
-    if leftcorner_2 == 'top':
-        if leftshift_2 == 'top':
-            left_top_2 = int(height*(1/32))
-        elif leftshift_2 == 'midone':
-            left_top_2 = int(height*(3/32))
-        elif leftshift_2 == 'midtwo':
-            left_top_2 = int(height*(5/32))
-        else:
-            left_top_2 = int(height*(7/32))
-    elif leftcorner_2 == 'midone':
-        if leftshift_2 == 'top':
-            left_top_2 = int(height*(9/32))
-        elif leftshift_2 == 'midone':
-            left_top_2 = int(height*(11/32))
-        elif leftshift_2 == 'midtwo':
-            left_top_2 = int(height*(13/32))
-        else:
-            left_top_2 = int(height*(15/32))
-    elif leftcorner_2 == 'midtwo':
-        if leftshift_2 == 'top':
-            left_top_2 = int(height*(17/32))
-        elif leftshift_2 == 'midone':
-            left_top_2 = int(height*(19/32))
-        elif leftshift_2 == 'midtwo':
-            left_top_2 = int(height*(21/32))
-        else:
-            left_top_2 = int(height*(23/32))
-    else:
-        if leftshift_2 == 'top':
-            left_top_2 = int(height*(25/32))
-        elif leftshift_2 == 'midone':
-            left_top_2 = int(height*(27/32))
-        elif leftshift_2 == 'midtwo':
-            left_top_2 = int(height*(29/32))
-        else:
-            left_top_2 = int(height*(31/32))
-    rightcorner_1 = rightcorner.split('_')[0]
-    rightcorner_2 = rightcorner.split('_')[1]
-    rightshift_1 = rightshift.split('_')[0]
-    rightshift_2 = rightshift.split('_')[1]
-    if rightcorner_1 == 'left':
-        if rightshift_1 == 'left':
-            right_bottom_1 = int(width*(1/32))
-        elif rightshift_1 == 'midone':
-            right_bottom_1 = int(width*(3/32))
-        elif rightshift_1 == 'midtwo':
-            right_bottom_1 = int(width*(5/32))
-        else:
-            right_bottom_1 = int(width*(7/32))
-    elif rightcorner_1 == 'midone':
-        if rightshift_1 == 'left':
-            right_bottom_1 = int(width*(9/32))
-        elif rightshift_1 == 'midone':
-            right_bottom_1 = int(width*(11/32))
-        elif rightshift_1 == 'midtwo':
-            right_bottom_1 = int(width*(13/32))
-        else:
-            right_bottom_1 = int(width*(15/32))
-    elif rightcorner_1 == 'midtwo':
-        if rightshift_1 == 'left':
-            right_bottom_1 = int(width*(17/32))
-        elif rightshift_1 == 'midone':
-            right_bottom_1 = int(width*(19/32))
-        elif rightshift_1 == 'midtwo':
-            right_bottom_1 = int(width*(21/32))
-        else:
-            right_bottom_1 = int(width*(23/32))
-    else:
-        if rightshift_1 == 'left':
-            right_bottom_1 = int(width*(25/32))
-        elif rightshift_1 == 'midone':
-            right_bottom_1 = int(width*(27/32))
-        elif rightshift_1 == 'midtwo':
-            right_bottom_1 = int(width*(29/32))
-        else:
-            right_bottom_1 = int(width*(31/32))
-    if rightcorner_2 == 'top':
-        if rightshift_2 == 'top':
-            right_bottom_2 = int(height*(1/32))
-        elif rightshift_2 == 'midone':
-            right_bottom_2 = int(height*(3/32))
-        elif rightshift_2 == 'midtwo':
-            right_bottom_2 = int(height*(5/32))
-        else:
-            right_bottom_2 = int(height*(7/32))
-    elif rightcorner_2 == 'midone':
-        if rightshift_2 == 'top':
-            right_bottom_2 = int(height*(9/32))
-        elif rightshift_2 == 'midone':
-            right_bottom_2 = int(height*(11/32))
-        elif rightshift_2 == 'midtwo':
-            right_bottom_2 = int(height*(13/32))
-        else:
-            right_bottom_2 = int(height*(15/32))
-    elif rightcorner_2 == 'midtwo':
-        if rightshift_2 == 'top':
-            right_bottom_2 = int(height*(17/32))
-        elif rightshift_2 == 'midone':
-            right_bottom_2 = int(height*(19/32))
-        elif rightshift_2 == 'midtwo':
-            right_bottom_2 = int(height*(21/32))
-        else:
-            right_bottom_2 = int(height*(23/32))
-    else:
-        if rightshift_2 == 'top':
-            right_bottom_2 = int(height*(25/32))
-        elif rightshift_2 == 'midone':
-            right_bottom_2 = int(height*(27/32))
-        elif rightshift_2 == 'midtwo':
-            right_bottom_2 = int(height*(29/32))
-        else:
-            right_bottom_2 = int(height*(31/32))
-    left_top = (left_top_1, left_top_2) 
-    right_bottom = (right_bottom_1, right_bottom_2) 
-    draw = ImageDraw.Draw(black_mask)
-    draw.rectangle([left_top, right_bottom], fill=255)
-    mask = black_mask
+
+def draw_add_mask(image_size, bbox):
+    mask = Image.new('L', image_size, 0)
+    draw = ImageDraw.Draw(mask)
+    draw.rectangle(bbox, fill=255)
     return mask
 
 def preprocess_np_to_torch(np_array, target_shape=(1, 682, 1024, 3)):
@@ -784,7 +630,10 @@ def save_torch_tensor_as_image(tensor, size=None):
     return image
 
 class WorkflowExecutor:
-    def __init__(self):
+    def __init__(self, llm, sampling_params, processor_workflow):
+        self.llm = llm
+        self.sampling_params = sampling_params
+        self.processor_workflow = processor_workflow
         # self.workflow = self.load_workflow(workflow_file)
         # self.context = {}  # 存储所有中间结果
         self.model_mapping = self.initialize_model_mapping()
@@ -799,9 +648,8 @@ class WorkflowExecutor:
         os.environ['MKL_NUM_THREADS'] = '1'
         os.environ['VECLIB_MAXIMUM_THREADS'] = '1'
         os.environ['NUMEXPR_NUM_THREADS'] = '1'
-        qwen_dir = './qwen2_pred' 
-        self.qwen_model = Qwen2VLForConditionalGeneration.from_pretrained(qwen_dir, device_map="auto", torch_dtype="auto", attn_implementation="flash_attention_2")
-        self.processor = AutoProcessor.from_pretrained(qwen_dir)
+
+        self.lora_path = "./mimo_lora/"
 
         version = "./CVRES"
         self.model = EvfSamEffiVitModel.from_pretrained(version, low_cpu_mem_usage=True)
@@ -817,13 +665,6 @@ class WorkflowExecutor:
             self.unet_canny = zerocfg.patch(model=self.unet_canny, use_zero_init=True, zero_init_steps=0)[0]
             self.FluxGuidance = nodes_flux.NODE_CLASS_MAPPINGS["FluxGuidance"]()
 
-        self.inter_image = []
-        with open('coco.txt', 'r') as f:
-            lines = f.readlines()
-            lines = [line.strip() for line in lines]
-        for line in lines:
-            self.inter_image.append(line)
-        self.yolo_model = YOLO("./yolo11n-seg.pt")
         self.subjectSeg = mirmbg_infer_onnx.segment_MIRMBG('./CVSOS/') 
         self.lamaInpaint = lama.lama_Inpaint()
 
@@ -1063,14 +904,13 @@ class WorkflowExecutor:
         return {
             "image": output_np
         }
-
         
     def dummy_add_pred(self, inputs: Dict[str, DataObject]) -> Dict[str, DataObject]:
         ori_image = inputs['image'].copy()
         ori_image = ori_image[:,:,::-1]
         ori_image = Image.fromarray(ori_image)
         ww, hh = ori_image.size[0], ori_image.size[1]
-        size = 1024 #768
+        size = 768
         if ww > hh:
             rate_wh = hh/ww
             size_w = int(size)
@@ -1083,7 +923,8 @@ class WorkflowExecutor:
             size_h = int(size)
             size_w = int(size)
         resize_image = ori_image.resize((size_w, size_h))
-        ppp = "用户使用工具的问题：" + inputs["prompt"] + "\n提示：意图识别为AIAD。\n请判断是否适合用该工具，若适合，给出使用工具的调用格式。"
+
+        ppp = "Add " + inputs["prompt"] + ", predict where it should be placed. Output the answer in the format [x1, y1, x2, y2]"
         messages = [
             {
                 "role": "user",
@@ -1096,99 +937,42 @@ class WorkflowExecutor:
                 ],
             }
         ]
-        text = self.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        prompt_post = self.processor_workflow.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         image_inputs, video_inputs = process_vision_info(messages)
-        inputs_qwen = self.processor(
-                text=[text],
-            images=image_inputs,
-            videos=video_inputs,
-            padding=True,
-            return_tensors="pt",
-        )
-        inputs_qwen = inputs_qwen.to("cuda")
-        generated_ids = self.qwen_model.generate(**inputs_qwen, max_new_tokens=128)
-        generated_ids_trimmed = [out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs_qwen.input_ids, generated_ids)]
-        output_text = self.processor.batch_decode(generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False)
-        text = output_text[0]
-        text = text.replace('\\"', "'").replace("\\'", "'")
+        mm_data = {}
+        if image_inputs is not None:
+            mm_data['image'] = image_inputs
+        llm_inputs = {
+            'prompt': prompt_post,
+            'multi_modal_data': mm_data,
+        }
+        outputs = self.llm.generate([llm_inputs], sampling_params=self.sampling_params, lora_request=LoRARequest("lora_name", 1, self.lora_path))
+        text = outputs[0].outputs[0].text
+        text = text.split('</think>')[-1]
         print('text', text)
-        json_str = text.split(' ', 1)[1].strip()
-
-        try:
-            data = json.loads(json_str)
-        except:
-            json_str = fix_broken_json(json_str)
-            data = json.loads(json_str)
-
-        api_params = data[0]["API_PARAMS"]
-        inout = api_params["inout"]
-        leftcorner = api_params["leftcorner"]
-        leftshift = api_params["leftshift"]
-        rightcorner = api_params["rightcorner"]
-        rightshift = api_params["rightshift"]
-        mask = draw_add_mask(ori_image, leftcorner, leftshift, rightcorner, rightshift)
-        mask = mask.resize((ww,hh))
+        bbox = ast.literal_eval(text)
+        image_size = resize_image.size
+        mask = draw_add_mask(image_size, bbox)
         
-        shift_pixels = int(hh/32)
-        if 'hat' in inputs['prompt'] or 'cap' in inputs['prompt'] and inout == 'in':
+        shift_pixels = int(hh/48)
+        if 'hat' in inputs['prompt'] or 'cap' in inputs['prompt']:
             mask = mask.transform(
                 mask.size,
                 Image.AFFINE,
                 (1, 0, 0, 0, 1, shift_pixels),  # 平移参数 (a, b, c, d, e, f)
                 fillcolor=0  # 填充平移后空白区域（根据你的mask类型调整，0通常是黑色）
             )
-
-        mask = mask.convert('L')
         mask = np.array(mask)
-        prompt = inputs['prompt']
-        if 'left' in prompt or 'right' in prompt:
-            direction = True
-        else:
-            direction = False
+        ratio = np.sum(mask)/(255*np.sum(np.ones_like(mask)))
+        if ratio < 0.002:
+            kernel_size = 3
+            kernel = np.ones((kernel_size, kernel_size), np.uint8)
+            mask = cv2.dilate(mask, kernel, iterations=5)
+
+        print('ratio', np.sum(mask)/(255*np.sum(np.ones_like(mask))))
+
+
         if inputs['mask'] is None:
-            if inout == 'out':
-                del_list = [13, 56, 57, 59]
-                aaa = inputs['image'].copy()
-                h1, w1 = aaa.shape[0], aaa.shape[1]
-                try:
-                    results = self.yolo_model(aaa)
-                    mask_yolo = results[0].masks.data
-                    mask_cls = results[0].boxes.cls
-                    mask_cls = mask_cls.tolist()
-                    with torch.inference_mode():  # 或者 torch.no_grad()
-                        mask_yolo_modified = mask_yolo.clone()  # 创建副本
-                        print(mask_cls)
-                        for i in range(len(mask_cls)):
-                            if mask_cls[i] in del_list:
-                                mask_yolo_modified[i] = torch.zeros_like(mask_yolo_modified[i])
-                        mask_yolo = mask_yolo_modified
-
-                    summed_tensor = torch.sum(mask_yolo, dim=0)
-                    clipped_tensor = torch.clamp(summed_tensor, max=1)
-                    numpy_array = clipped_tensor.cpu().numpy() * 255
-                    numpy_array = cv2.resize(numpy_array, (w1, h1))
-                    obj_mask = numpy_array
-                    obj_mask[obj_mask <= 127.5] = 0
-                    obj_mask[obj_mask > 127.5] = 255
-                except:
-                    obj_mask = np.zeros_like(mask)
-                mask_o = mask.copy()
-                mask_o_sum = np.sum(mask)
-                mask_get = mask_o - obj_mask
-                mask_get[mask_get < 0] = 0
-                overleap = np.sum(mask_get)/mask_o_sum
-                mask_t = np.logical_and(mask, obj_mask)
-                if overleap < 0.8:
-                    print('shfffffffffffffff')
-                    mask_get = shift_mask_based_on_center(np.array(mask), obj_mask, direction=direction)
-                    mask = mask_get
-                else:
-                    mask = np.array(mask)
-             #   mask = mask - obj_mask
-                mask[mask < 0] = 0
-            else:
-                mask = np.array(mask)
-
             return {"mask": mask}
         else:
             mask_add = mask.copy()
@@ -1213,10 +997,6 @@ class WorkflowExecutor:
         prompt1 = inputs["prompt"] 
         style1 = inputs["style"]
         describe = prompt1
-     #   if len(prompt1) >= 50:
-     #       describe = prompt1
-     #   else:
-     #       describe = ""
 
         if style1 is not None:
             if 'style' in style1:
@@ -1330,7 +1110,7 @@ class WorkflowExecutor:
         pil_image = Image.fromarray(masked_image[:,:,::-1])
 
         ww, hh = pil_image.size[0], pil_image.size[1]
-        size = 448 #1024
+        size = 768 
         if ww > hh:
             rate_wh = hh/ww
             size_w = int(size)
@@ -1347,41 +1127,33 @@ class WorkflowExecutor:
         scene = inputs['prompt']
         print('scene', scene)
 
-        ppp = "用户使用工具的问题：" + inputs['prompt'] + "\n提示：意图识别为AICB。\n请判断是否适合用该工具，若适合，给出使用工具的调用格式。"
+        ppp = inputs["prompt"] + ", give a description of the image after changing the background"
         messages = [
             {
                 "role": "user",
                 "content": [
                     {
                         "type": "image",
-                        "image": resize_image,
+                        "image": resize_image, 
                     },
                     {"type": "text", "text": ppp},
                 ],
             }
         ]
-        text = self.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        prompt_post = self.processor_workflow.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         image_inputs, video_inputs = process_vision_info(messages)
-        inputs = self.processor(
-            text=[text],
-            images=image_inputs,
-            videos=video_inputs,
-            padding=True,
-            return_tensors="pt",
-        )
-        inputs = inputs.to("cuda")
-        generated_ids = self.qwen_model.generate(**inputs, max_new_tokens=128)
-        generated_ids_trimmed = [
-            out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
-        ]
-        output_text = self.processor.batch_decode(
-            generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
-        )
-        text = output_text[0]
-        text = text.replace('\\"', "'").replace("\\'", "'")
-        prompt = re.search(r'"captions"\s*:\s*"([^"]+)"', text)
-        prompt = prompt.group(1)
-        prompt = scene + ', ' + prompt
+        mm_data = {}
+        if image_inputs is not None:
+            mm_data['image'] = image_inputs
+        llm_inputs = {
+            'prompt': prompt_post,
+            'multi_modal_data': mm_data,
+        }
+        outputs = self.llm.generate([llm_inputs], sampling_params=self.sampling_params, lora_request=LoRARequest("lora_name", 1, self.lora_path))
+        text = outputs[0].outputs[0].text
+        text = text.split('</think>')[-1]
+        print('text', text)
+        prompt = scene + ', ' + text.replace('\n','')
         print('prompt', prompt)
         with torch.inference_mode():
             differentialdiffusion = Differentialdiffusion.apply(model=self.unet_canny)[0]
@@ -1695,7 +1467,8 @@ class WorkflowExecutor:
             size_h = int(size)
             size_w = int(size)
         resize_image = ori_image.resize((size_w, size_h))
-        ppp = "用户使用工具的问题：" + "扩图2倍" + "\n提示：意图识别为AIIO。\n请判断是否适合用该工具，若适合，给出使用工具的调用格式。"
+
+        ppp = "Describe this image"
         messages = [
             {
                 "role": "user",
@@ -1708,23 +1481,20 @@ class WorkflowExecutor:
                 ],
             }
         ]
-        text = self.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        prompt_post = self.processor_workflow.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         image_inputs, video_inputs = process_vision_info(messages)
-        inputs_qwen = self.processor(
-                text=[text],
-            images=image_inputs,
-            videos=video_inputs,
-            padding=True,
-            return_tensors="pt",
-        )
-        inputs_qwen = inputs_qwen.to("cuda")
-        generated_ids = self.qwen_model.generate(**inputs_qwen, max_new_tokens=128)
-        generated_ids_trimmed = [out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs_qwen.input_ids, generated_ids)]
-        output_text = self.processor.batch_decode(generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False)
-        text = output_text[0]
-        text = text.replace('\\"', "'").replace("\\'", "'")
-        caption = re.search(r'"captions"\s*:\s*"([^"]+)"', text)
-        caption = caption.group(1)
+        mm_data = {}
+        if image_inputs is not None:
+            mm_data['image'] = image_inputs
+        llm_inputs = {
+            'prompt': prompt_post,
+            'multi_modal_data': mm_data,
+        }
+        outputs = self.llm.generate([llm_inputs], sampling_params=self.sampling_params, lora_request=LoRARequest("lora_name", 1, self.lora_path))
+        text = outputs[0].outputs[0].text
+        text = text.split('</think>')[-1]
+
+        caption = text.replace('\n','')
         if 'left_ratio' in inputs.keys() and inputs['left_ratio'] is None:
             mask = None
             resized_image = None
@@ -2257,19 +2027,22 @@ from argparse import ArgumentParser
 class Demo():
     def __init__(self, args):
         self.args = args
-        self.executor = WorkflowExecutor()
 
         qwen_workflow_dir = "./Builder"
-        
+
         self.llm = LLM(
             model= qwen_workflow_dir,
             limit_mm_per_prompt={'image': 1},
-            gpu_memory_utilization=0.9, ##0.35, #0.58,
+            gpu_memory_utilization=0.3, ##0.35, #0.58,
             dtype='float16',
+            enable_lora=True,
+            max_lora_rank=32
         )
         self.sampling_params = SamplingParams(temperature=0, top_p=1, max_tokens=4096,stop_token_ids=[])
 
         self.processor_workflow = AutoProcessor.from_pretrained(qwen_workflow_dir)
+
+        self.executor = WorkflowExecutor(llm=self.llm, sampling_params=self.sampling_params, processor_workflow=self.processor_workflow)
 
         self.demo_init()
         
@@ -2346,6 +2119,7 @@ class Demo():
             size_h = int(size)
             size_w = int(size)
         iii = iii.resize((size_w, size_h))
+
         messages = [
             {
                 "role": "user",
