@@ -253,3 +253,8 @@ If you find this project useful for your research, please consider citing our pa
   year    = {2025}
 }
 ```
+
+## 🙏 Acknowledgments
+
+- Built on the [MiMo-VL](https://github.com/XiaomiMiMo/MiMo-VL), [ComfyUI](https://github.com/comfyanonymous/ComfyUI), [FLUX](https://github.com/black-forest-labs/flux), [ICEdit](https://github.com/River-Zhang/ICEdit), [EVF-SAM](https://github.com/hustvl/EVF-SAM) and [LaMa](https://github.com/advimman/lama)
+
