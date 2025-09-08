@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="lego_pic.png" alt="Lego-Edit" width="240"/>
+  <img src="./resources/lego_pic.png" alt="Lego-Edit" width="240"/>
 </p>
 
 <p align="center">
@@ -38,7 +38,7 @@
 and ImgBench. It exhibits robust reasoning capabilities for open-domain instructions and can utilize newly introduced editing tools without additional fine-tuning. 
 The figure below showcases Lego-Edit's qualitative performance.
 
-<p align="center"><img src="case_pic.png" width="95%"></p>
+<p align="center"><img src="./resources/case_pic.png" width="95%"></p>
 
 ## ✨ Featrues
 
@@ -46,9 +46,9 @@ Lego-Edit supports local editing, global editing, and multi-step editing as demo
 
 Additionally, Lego-Edit accepts mask inputs for precise editing region control. Example applications are provided here:
 
-<p align="center"><img src="maskcase1.png" width="95%"></p>
+<p align="center"><img src="./resources/maskcase1.png" width="95%"></p>
 
-<p align="center"><img src="maskcase2.png" width="95%"></p>
+<p align="center"><img src="./resources/maskcase2.png" width="95%"></p>
 
 You can try it and find more usages of this framework.
 
@@ -215,14 +215,14 @@ Complete your function (dummy_flux_sr) in legodemo.py.
 
 3️⃣ Restart Gradio WebUI
 
-<p align="center"><img src="bright.png" width="95%"></p>
+<p align="center"><img src="./resources/bright.png" width="95%"></p>
 
 
 ## 📍 More Usages
 
 Some editing models are trained at a resolution of 768 via the ICEdit method, prioritizing higher output quality over the standard 512 resolution. We provide the corresponding trained [Single-Task-LoRA](https://huggingface.co/RiverZ/normal-lora/tree/main). Based on our testing, these models deliver superior performance within their specific functional domains.
 
-<p align="center"><img src="lora_effect.png" width="95%"></p>
+<p align="center"><img src="./resources/lora_effect.png" width="95%"></p>
 
 You can refer to the usage instructions at [ICEdit](https://github.com/River-Zhang/ICEdit) to use these LoRAs independently.
 
