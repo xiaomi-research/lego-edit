@@ -189,7 +189,7 @@ Complete your function (dummy_flux_sr) in legodemo.py.
 
 ## 📍 More Usages
 
-Some editing models are trained at a resolution of 768 via the ICEdit method, prioritizing higher output quality over the standard 512 resolution. We provide the corresponding trained [Single-Task-LoRA](https://huggingface.co/RiverZ/normal-lora/tree/main). Based on our testing, these models deliver superior performance within their specific functional domains.
+Some editing models are trained at a resolution of 768 via the ICEdit method, prioritizing higher output quality over the standard 512 resolution. We provide the corresponding trained [Single-Task-LoRA](https://huggingface.co/xiaomi-research/lego-edit/tree/main/loras). Based on our testing, these models deliver superior performance within their specific functional domains.
 
 <p align="center"><img src="./resources/lora_effect.png" width="95%"></p>
 
