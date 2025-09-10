@@ -90,7 +90,7 @@ Base Model:
 
 Our Model:
 
-1. Download all the models (Builder, mimo_lora, CVSOS, CVRES) from [lego-edit](https://huggingface.co/xiaomi-research/lego-edit/).
+1. Download all the models (Builder, mimo_lora, CVSOS, CVRES, loras) from [lego-edit](https://huggingface.co/xiaomi-research/lego-edit/).
 
 
 Your model structure should match the following:
