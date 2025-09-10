@@ -5,25 +5,25 @@
 <p align="center">
   <a href="xxx">
     <img
-      src="xxx"
+      src="https://img.shields.io/static/v1?label=Project%20Page&message=Web&color=green"
       alt="Lego-Edit Website"
     />
   </a>
   <a href="xxx">
     <img
-      src="xxx"
+      src="https://img.shields.io/static/v1?label=Tech%20Report&message=Arxiv&color=red"
       alt="Lego-Edit Paper on arXiv"
     />
   </a>
   <a href="xxx">
     <img 
-        src="xxx" 
+        src="https://img.shields.io/static/v1?label=Model&message=HuggingFace&color=yellow" 
         alt="Lego-Edit Model"
     />
   </a>
   <a href="xxx">
     <img
-      src="xxx"
+      src="https://img.shields.io/badge/Demo-Live-orange"
       alt="Lego-Edit Demo"
     />
   </a>
@@ -54,7 +54,7 @@ You can try it and find more usages of this framework.
 
 ## 📢 News
 
-- **Aug 31, 2025:** We released the official [website](https://bagel-ai.org/), [demo](https://demo.bagel-ai.org/), [model](https://huggingface.co/ByteDance-Seed/BAGEL-7B-MoT), and [report](https://arxiv.org/abs/2505.14683) for Lego-Edit.
+- **Aug 31, 2025:** We released the official [website](xxx), [demo](xxx), [model](xxx), and [report](xxx) for Lego-Edit.
 
 
 ## 🔥 Quick Start
@@ -88,41 +88,10 @@ Base Model:
 4. Download the [lama](https://drive.google.com/file/d/11RbsVSav3O-fReBsPHBE1nn8kcFIMnKp/view?usp=drive_link), unzip and copy it to './lama'.
 
 
-Seg Model:
-```bash
-Download（私有链接，审核通过后会上传huggingface）and rename to 'CVSOS'.
+Our Model:
 
-名称：CVSOS
-地址：https://kpan.mioffice.cn/webfolder/ext/Iq0mwy3V%23Gv%24uVm31GQvyw%40%40?n=0.35610103439185425
-密码：82H4
+1. Download all the models (Builder, mimo_lora, CVSOS, CVRES) from [lego-edit](https://huggingface.co/xiaomi-research/lego-edit/).
 
-Download（私有链接，审核通过后会上传huggingface）and rename to 'CVRES'.
-
-名称：CVRES
-地址：https://kpan.mioffice.cn/webfolder/ext/UmCyzI8sKcz%24uVm31GQvyw%40%40?n=0.6217058873666281
-密码：5fA5
-
-Download（私有链接，审核通过后会上传huggingface）and rename to 'mimo_lora'.
-
-名称：mimo_lora
-地址：https://kpan.mioffice.cn/webfolder/ext/PHPN8nZ4qG3%24uVm31GQvyw%40%40?n=0.6999273634782488
-密码：q2P5
-
-Download（私有链接，审核通过后会上传huggingface）and rename to 'Builder'.
-
-名称：Builder
-地址：https://kpan.mioffice.cn/webfolder/ext/7E2zLnL8zbL%24uVm31GQvyw%40%40?n=0.52692929059782
-密码：26D5
-```
-
-Edit Model:
-```bash
-Download（私有链接，审核通过后会上传huggingface）and copy them to './models/loras/'.
-
-名称：loras
-地址：https://kpan.mioffice.cn/webfolder/ext/1d4%23a0oGx3n%24uVm31GQvyw%40%40?n=0.9684425581722693
-密码：n56r
-```
 
 Your model structure should match the following:
 ```bash
