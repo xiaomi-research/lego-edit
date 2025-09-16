@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="xxx">
+  <a href="https://xiaomi-research.github.io/lego-edit/">
     <img
       src="https://img.shields.io/static/v1?label=Project%20Page&message=Web&color=green"
       alt="Lego-Edit Website"
@@ -15,13 +15,13 @@
       alt="Lego-Edit Paper on arXiv"
     />
   </a>
-  <a href="xxx">
+  <a href="https://huggingface.co/xiaomi-research/lego-edit">
     <img 
         src="https://img.shields.io/static/v1?label=Model&message=HuggingFace&color=yellow" 
         alt="Lego-Edit Model"
     />
   </a>
-  <a href="xxx">
+  <a href="https://editdemo.ai.xiaomi.net/">
     <img
       src="https://img.shields.io/badge/Demo-Live-orange"
       alt="Lego-Edit Demo"
@@ -54,7 +54,7 @@ You can try it and find more usages of this framework.
 
 ## 📢 News
 
-- **Aug 31, 2025:** We released the official [website](xxx), [demo](xxx), [model](xxx), and [report](xxx) for Lego-Edit.
+- **Sep 17, 2025:** We released the official [website](https://xiaomi-research.github.io/lego-edit/), [demo](https://editdemo.ai.xiaomi.net/), [model](https://huggingface.co/xiaomi-research/lego-edit), and [report](xxx) for Lego-Edit.
 
 
 ## 🔥 Quick Start
