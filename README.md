@@ -9,7 +9,7 @@
       alt="Lego-Edit Website"
     />
   </a>
-  <a href="xxx">
+  <a href="https://arxiv.org/abs/2509.12883">
     <img
       src="https://img.shields.io/static/v1?label=Tech%20Report&message=Arxiv&color=red"
       alt="Lego-Edit Paper on arXiv"
@@ -54,7 +54,7 @@ You can try it and find more usages of this framework.
 
 ## 📢 News
 
-- **Sep 17, 2025:** We released the official [website](https://xiaomi-research.github.io/lego-edit/), [demo](https://editdemo.ai.xiaomi.net/), [model](https://huggingface.co/xiaomi-research/lego-edit), and [report](xxx) for Lego-Edit.
+- **Sep 17, 2025:** We released the official [website](https://xiaomi-research.github.io/lego-edit/), [demo](https://editdemo.ai.xiaomi.net/), [model](https://huggingface.co/xiaomi-research/lego-edit), and [report](https://arxiv.org/abs/2509.12883) for Lego-Edit.
 
 
 ## 🔥 Quick Start
