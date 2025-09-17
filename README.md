@@ -3,12 +3,6 @@
 </p>
 
 <p align="center">
-  <a href="https://xiaomi-research.github.io/lego-edit/">
-    <img
-      src="https://img.shields.io/static/v1?label=Project%20Page&message=Web&color=green"
-      alt="Lego-Edit Website"
-    />
-  </a>
   <a href="https://arxiv.org/abs/2509.12883">
     <img
       src="https://img.shields.io/static/v1?label=Tech%20Report&message=Arxiv&color=red"
@@ -54,7 +48,7 @@ You can try it and find more usages of this framework.
 
 ## 📢 News
 
-- **Sep 17, 2025:** We released the official [website](https://xiaomi-research.github.io/lego-edit/), [demo](https://editdemo.ai.xiaomi.net/), [model](https://huggingface.co/xiaomi-research/lego-edit), and [report](https://arxiv.org/abs/2509.12883) for Lego-Edit.
+- **Sep 17, 2025:** We released the [demo](https://editdemo.ai.xiaomi.net/), [model](https://huggingface.co/xiaomi-research/lego-edit), and [report](https://arxiv.org/abs/2509.12883) for Lego-Edit.
 
 
 ## 🔥 Quick Start
@@ -215,13 +209,15 @@ If this repo is helpful, please help to ⭐ it.
 If you find this project useful for your research, please consider citing our paper:
 
 ```bibtex
-@article{xxx,
+@article{jia2025legoedit,
   title   = {Lego-Edit: A General Image Editing Framework with Model-Level Bricks and MLLM Builder},
-  author  = {xxx},
-  journal = {xxx},
-  year    = {2025}
+  author  = {Qifei Jia and Yu Liu and Yajie Chai and Xintong Yao and Qiming Lu and Yasen Zhang and Runyu Shi and Ying Huang and Guoquan Zhang},
+  journal = {arXiv preprint arXiv:2509.12883},
+  year    = {2025},
+  url     = {https://arxiv.org/abs/2509.12883}
 }
 ```
+
 
 ## 🙏 Acknowledgments
 
