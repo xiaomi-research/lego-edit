@@ -1,0 +1,259 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>A General Image Editing Framework with Model-Level Bricks and MLLM Builder</title>
+<!-- 引用 .ico 格式的 favicon -->
+<link rel="icon" href="static/files/lego.png" type="image/png">
+
+<!-- Common stylesheet -->
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet">
+<link href="static/css/bulma.min.css" rel="stylesheet">
+<link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+<link rel="stylesheet" href="static/css/bulma-slider.min.css">
+<link href="static/css/fontawesome.all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+<link href="static/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Chewy:regular" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script:regular" rel="stylesheet" />
+</head>
+
+<body>
+<div class="column has-text-centered" style="background: #e2dcdc;width: 100%">
+<!-- <div class="column has-text-centered" style="background: #ffffff;width: 100%"> -->
+  <br>
+  <br>
+  <h1 class="title is-1 publication-title">
+    <!-- <img id="title-icon" src="static/files/image.png" alt="Icon" style="margin-right: 60px; transform: scale(1.5); display: inline-block;">
+    <span style="font-size: 60px; color:#5c2b0f; font-weight: bold; font-family: 'Nunito', 'Comic Sans MS', sans-serif">
+      <strong>Lego-Edit</strong></span><br><br> -->
+    <!-- <span style="font-size: 40px; color:#f77605; font-weight: bold; font-family: Chewy,regular; background: linear-gradient(to right, #60605f, #fcfbfb); -webkit-background-clip: text; color: transparent;"> -->
+      <!-- <strong>Less-to-More </strong></span> -->
+      <span style="font-size: 40px; color:#9b978b; font-weight: bold; font-family: Chewy,regular; letter-spacing: 1.5px;">
+        <strong>A General Image Editing Framework with<br></strong></span>
+        <span style="font-size: 40px; color:#08971b; font-weight: bold; font-family: Chewy,regular; letter-spacing: 1.5px;">
+          <strong>Model-Level Bricks</strong></span>
+          <span style="font-size: 40px; color:#9b978b; font-weight: bold; font-family: Chewy,regular; letter-spacing: 1.5px;">
+            <strong> and </strong></span>  
+            <span style="font-size: 40px; color:#2d0797; font-weight: bold; font-family: Chewy,regular; letter-spacing: 1.5px;">
+              <strong>MLLM Builder</strong></span>                                      
+  <p id="authors"> 
+    <br>
+    <span style="color:#333435; font-family: Gill Sans">Qifei Jia</span><sup>*</sup>&ensp;</a>  
+    <span style="color:#333435; font-family: Gill Sans">Yu Liu</span><sup>*</sup>&ensp;</a>  
+    <span style="color:#333435; font-family: Gill Sans">Yajie Chai</span>&ensp;</a> 
+    <span style="color:#333435; font-family: Gill Sans">Xintong Yao&ensp;</span></a>  
+    <span style="color:#333435; font-family: Gill Sans">Qiming Lu&ensp;</span></a>  
+    <span style="color:#333435; font-family: Gill Sans">Yasen Zhang</span><sup>+</sup>&ensp;</a>
+    <span style="color:#333435; font-family: Gill Sans">Runyu Shi&ensp;</span></a>
+    <span style="color:#333435; font-family: Gill Sans">Ying Huang&ensp;</span></a>
+    <span style="color:#333435; font-family: Gill Sans">Guoquan Zhang</span></a>
+    <br> 
+
+  <span style="color:#333435; font-family: Gill Sans; font-size: 22px"> Xiaomi </span></p>
+
+  <div class="column has-text-centered">
+    <div class="publication-links">
+      <!-- PDF Link. -->
+      <span class="link-block">
+        <a href="https://arxiv.org/abs/2509.12883"
+           class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+              <i class="ai ai-arxiv"></i>
+          </span>
+          <span>arXiv</span>
+        </a>
+      </span>
+      <!-- Code Link. -->
+      <span class="link-block">
+        <a href="https://github.com/xiaomi-research/lego-edit"
+           class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+            <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+          </span>
+          <span>Code</span>
+          </a>
+      </span>
+      <!-- Model Link. -->
+      <span class="link-block">
+        <a href="https://huggingface.co/xiaomi-research/lego-edit" class="external-link button is-normal is-rounded is-dark"  target="_blank">
+          <span class="icon">
+            <img src="static/files/ai.svg" alt="SVG Icon" style="width: 18px; height: 18px; background-color: #f5f5f5;">
+          </span>
+          <span>Model</span>
+          </a>
+      </span>
+      <!-- Demo Link. -->
+      <span class="link-block">
+        <a href="https://editdemo.ai.xiaomi.net/" class="external-link button is-normal is-rounded is-dark" target="_blank">
+          <span class="icon">
+            <img src="static/files/hf.svg" alt="SVG Icon" style="width: 18px; height: 18px;">
+          </span>
+          <span>Demo</span>
+          </a>
+      </span>
+
+    </div>
+  </div>
+</div>
+
+<!--=================Teasers==========================-->
+<section class="hero is-small" style="background: #868080">
+  <br>
+  <div class="carousel-teaser-container">
+    <div class="carousel-teaser carousel-teaser-scroll-left">
+      <!-- loop1 -->
+      <img src="static/files/teaser/1.png" alt="Image 0" style="margin-right: 40px;">
+      <img src="static/files/teaser/2.png" alt="Image 0" style="margin-right: 40px;">
+      <img src="static/files/teaser/3.png" alt="Image 0" style="margin-right: 40px;">        
+      <!-- loop2 -->
+      <img src="static/files/teaser/1.png" alt="Image 0" style="margin-right: 40px;">
+      <img src="static/files/teaser/2.png" alt="Image 0" style="margin-right: 40px;">
+      <img src="static/files/teaser/3.png" alt="Image 0" style="margin-right: 40px;">           
+    </div>
+  </div>
+  <div class="teaser_text" style="color:#f4f3f1;font-size:20px;width:100%;text-align:center;">
+    <p style="line-height:1.8;text-align:center"><b>We introduce our edit framework, it leverages a Multimodal Large Language Model to organize a set of model-level editing tools and trains it via progressive reinforcement learning for generalized instruction-based image editing.</b></p>
+  </div>
+</section>
+<div class="content_two" style="background: #504c4c">
+  <br>
+<h2 style="text-align:center; color:#f4f3f1;"><b>What can it do?</b></h2>
+<br>
+<div class="video-container" lang="en" title="Video Teaser Section" text-align="center">
+  <video width="960" height="475" controls autoplay muted loop>
+      <source src="static/files/demo.mp4" type="video/mp4">
+  </video>
+</div>
+</div>
+
+<div class="content_two" style="background: #504c4c">
+  <br>
+  <!-- <div class="hero-body" style="background: #f7fbfb;width: 100%"></div> -->
+  <h2 style="text-align:center; color:#f4f3f1;"><b>Abstract</b></h2>
+  <br>
+  <p>Instruction-based image editing has garnered significant attention due to its direct interaction with users. However, real-world user instructions are immensely diverse, and existing methods often fail to generalize effectively to instructions outside their training domain, limiting their practical application. To address this, we propose our edit framework, which leverages the generalization capability of Multi-modal Large Language Model (MLLM) to organize a suite of model-level editing tools to tackle this challenge. It incorporates two key designs: (1) a model-level toolkit comprising diverse models efficiently trained on limited data and several image manipulation functions, enabling fine-grained composition of editing actions by the MLLM; and (2) a three-stage progressive reinforcement learning approach that uses feedback on unannotated, open-domain instructions to train the MLLM, equipping it with generalized reasoning capabilities for handling real-world instructions. Experiments demonstrate that it achieves state-of-the-art performance on GEdit-Bench and ImgBench. It exhibits robust reasoning capabilities for open-domain instructions and can utilize newly introduced editing tools without additional fine-tuning.</p>
+</div>
+
+<div class="content_two" style="background: #504c4c">
+  <br>
+  <!-- <div class="hero-body" style="background: #f7fbfb;width: 100%"></div> -->
+  <h2 style="text-align:center; color:#f4f3f1;"><b>How does it work?</b></h2><br>
+  <img class="summary-img" src="static/files/comparison/3.png" style="width:100%;">
+  <br>
+  <p>Our system comprises: 1) the Builder, an MLLM reasoning agent that generates workflows; 2) an Executor that parses and executes workflows; and 3) the Bricks, an external model-level tool library containing functions encapsulating models or logic processes.
+  Given an input pair comprising a target image and an editing prompt, the Builder observing the input state generates a reasoning trace and a JSON-formatted workflow based on its strategy. This workflow is a tool invocation graph. The vertex set represents the selected tool instances. The edge set defines sequential dependencies. The Executor then parses the workflow, invokes the tools, and generates the edited image.
+  </p>
+</div>
+
+<div class="content_two" style="background: #504c4c">
+  <br>
+  <h2 style="text-align:center; color:#f4f3f1;"><b>Handle Flexible Instruction</b></h2><br>
+  <img class="summary-img" src="static/files/comparison/7.png" style="width:100%;">
+  <br>
+  <p>
+    We present a visual comparison of editing results on flexible instructions, alongside the Builder's tool composition process. For the "swap" instruction, although the Builder was not explicitly trained on this task, it effectively decomposes the instruction into atomic operations by first removing object A using RES and INPAINT, then inserting object B via ADD-PRED and FILL. This example shows its ability to compose specialized tools for flexible editing instructions.
+  </p>
+</div>
+
+<div class="content_two" style="background: #504c4c">
+  <br>
+  <h2 style="text-align:center; color:#f4f3f1;"><b>Response to Feedback and Newly Added Tool</b></h2><br>
+  <img class="summary-img" src="static/files/comparison/6.png" style="width:100%;">
+  <br>
+  <p>
+    We demonstrates the Builder's adaptability to user feedback and new tools without retraining. For the reflection removal task, the Builder's initial workflow (RES and INPAINT) failed because RES could not segment reflections effectively. Users can provide direct instructions, such as "don't use RES before INPAINT" to prevent it. Guided by this feedback, the Builder revises its workflow: it uses SOS for foreground segmentation, INVERSE to infer the background, and then INPAINT to remove part of the reflection. Additionally, users can introduce a dedicated reflection-removal tool (RRF), which the Builder readily adopts to solve the task effectively. 
+  </p>
+</div>  
+
+<div class="content_two" style="background: #504c4c">
+  <br>
+  <h2 style="text-align:center; color:#f4f3f1;"><b>More Editing Cases</b></h2>
+  <br>
+  <div class="carousel-container">
+    <div class="carousel carousel-scroll-left">
+      <!-- loop1 -->
+      <img src="static/files/slider/left1.png" alt="Image 1" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left2.png" alt="Image 2" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left3.png" alt="Image 3" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left4.png" alt="Image 4" style="width: auto; height: 180px;">
+      <!-- loop2 -->
+      <img src="static/files/slider/left1.png" alt="Image 1" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left2.png" alt="Image 2" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left3.png" alt="Image 3" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left4.png" alt="Image 4" style="width: auto; height: 180px;">
+    </div>
+  </div>
+  
+  <!-- slider l->r -->
+  <div class="carousel-container">
+    <div class="carousel carousel-scroll-right">
+      <!-- loop1 -->
+      <img src="static/files/slider/right1.png" alt="Image 1" style="width: auto; height: 180px;">
+      <img src="static/files/slider/right2.png" alt="Image 2" style="width: auto; height: 180px;">
+      <img src="static/files/slider/right3.png" alt="Image 3" style="width: auto; height: 180px;">
+      <img src="static/files/slider/right4.png" alt="Image 4" style="width: auto; height: 180px;">
+      <!-- loop2 -->
+      <img src="static/files/slider/right1.png" alt="Image 1" style="width: auto; height: 180px;">
+      <img src="static/files/slider/right2.png" alt="Image 2" style="width: auto; height: 180px;">
+      <img src="static/files/slider/right3.png" alt="Image 3" style="width: auto; height: 180px;">
+      <img src="static/files/slider/right4.png" alt="Image 4" style="width: auto; height: 180px;">
+    </div>
+  </div>
+
+  <div class="carousel-container">
+    <div class="carousel carousel-scroll-left">
+      <!-- loop1 -->
+      <img src="static/files/slider/left11.png" alt="Image 1" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left12.png" alt="Image 2" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left13.png" alt="Image 3" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left14.png" alt="Image 4" style="width: auto; height: 180px;">
+      <!-- loop2 -->
+      <img src="static/files/slider/left11.png" alt="Image 1" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left12.png" alt="Image 2" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left13.png" alt="Image 3" style="width: auto; height: 180px;">
+      <img src="static/files/slider/left14.png" alt="Image 4" style="width: auto; height: 180px;">
+    </div>
+  </div>
+  <br>
+</div>  
+
+<div class="content_two" style="background: #504c4c">
+  <h2 style="text-align:center; color:#f4f3f1;"><b>Disclaimer</b></h2><br>
+  <p>
+    We open-source this project for academic research. The vast majority of images 
+    used in this project are either generated or licensed. If you have any concerns, 
+    please contact us, and we will promptly remove any inappropriate content. 
+    Any models related to <a href="https://huggingface.co/black-forest-labs/FLUX.1-dev" target="_blank" style="color:#f4f3f1">FLUX.1-dev</a> 
+    base model must adhere to the original licensing terms.
+    <br><br>This research aims to advance the field of generative AI. Users are free to 
+    create images using this tool, provided they comply with local laws and exercise 
+    responsible usage. The developers are not liable for any misuse of the tool by users.</p>
+  <br>
+</div>
+
+<div class="content_two" style="background: #504c4c">
+  <h3>BibTex</h3><br>
+  <p> @misc{jia2025legoeditgeneralimageediting,<br>
+  &nbsp;&nbsp;title={Lego-Edit: A General Image Editing Framework with Model-Level Bricks and MLLM Builder},<br>
+  &nbsp;&nbsp;author={Qifei Jia and Yu Liu and Yajie Chai and Xintong Yao and Qiming Lu and Yasen Zhang and Runyu Shi and Ying Huang and Guoquan Zhang},<br>
+  &nbsp;&nbsp;year={2025},<br>
+  &nbsp;&nbsp;eprint={2509.12883},<br>
+  &nbsp;&nbsp;archivePrefix={arXiv},<br>
+  &nbsp;&nbsp;primaryClass={cs.CV},<br>
+  &nbsp;&nbsp;url={https://arxiv.org/abs/2509.12883},<br>
+  } </p>
+</div>
+
+<div class="content_two" style="background: #504c4c">
+  <br>
+  <p style="text-align: center">
+    Thanks to 
+    <span class="publication-authors"><a href="https://github.com/bytedance/UNO/tree/gh-pages" target="_blank" style="color:#f4f3f1">UNO</a></span> for the page template.
+  </p>
+  <br>
+</div>
+
+</body>
+</html>
