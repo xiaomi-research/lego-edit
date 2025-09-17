@@ -3,6 +3,12 @@
 </p>
 
 <p align="center">
+  <a href="https://xiaomi-research.github.io/lego-edit/">
+    <img
+      src="https://img.shields.io/static/v1?label=Project%20Page&message=Web&color=green"
+      alt="Lego-Edit Website"
+    />
+  </a>
   <a href="https://arxiv.org/abs/2509.12883">
     <img
       src="https://img.shields.io/static/v1?label=Tech%20Report&message=Arxiv&color=red"
