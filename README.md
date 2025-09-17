@@ -40,7 +40,7 @@ The figure below showcases Lego-Edit's qualitative performance.
 
 <p align="center"><img src="./resources/case_pic.png" width="95%"></p>
 
-## ✨ Featrues
+## ✨ Features
 
 Lego-Edit supports local editing, global editing, and multi-step editing as demonstrated in our tests, with corresponding results shown above. We discuss its feedback responsiveness and tool-extension capabilities in our paper.
 
@@ -201,7 +201,7 @@ You can refer to the usage instructions at [ICEdit](https://github.com/River-Zha
 We open-source this project for academic research. The vast majority of images 
 used in this project are either generated or licensed. If you have any concerns, 
 please contact us, and we will promptly remove any inappropriate content. 
-Our code is released under the Apache 2.0 License,, while our models are under 
+Our code is released under the Apache 2.0 License, while our models are under 
 the CC BY-NC 4.0 License. Any models related to <a href="https://huggingface.co/black-forest-labs/FLUX.1-dev" target="_blank">FLUX.1-dev</a> 
 base model must adhere to the original licensing terms.
 <br><br>This research aims to advance the field of generative AI. Users are free to 
